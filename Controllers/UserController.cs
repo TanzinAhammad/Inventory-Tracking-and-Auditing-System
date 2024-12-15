@@ -121,7 +121,7 @@ namespace CRUD_Using_Repository.Controllers
                     bool status = await userRepository.DeleteRecord(id);
                     if(status)
                     {
-                        TempData["userSuccess"] = "Your Record has been successfully Deleted!";
+                        TempData["userSuccess"] = "Your Record has been Successfully Deleted!";
                     }
                     else
                     {
