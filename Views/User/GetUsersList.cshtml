@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CRUD_Using_Repository.Models.User>
+@{
+    ViewData["Title"] = "GetUsersList";
+}
+
+<div class="contianer">
+    <div class="row">
+        @if(TempData["userError"]!=null)
+        {
+            <div class="alert alert-danger notification text-center">
+                 @TempData["userError"]
+            </div>
+        }
+        @if (TempData["userSuccess"] != null)
+        {
+            <div class="alert alert-success notification text-center">
+                @TempData["userSuccess"]
+            </div>
+        }
+        <div class="col-10 offset-1">
+
+            <div class="float-end">
+                <a class="btn btn-sm btn-primary p-1 m-1" asp-action="AddUser" asp-controller="User">Add User</a>
+            </div>
+
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="text-center bg-dark text-light">
+                    <tr>
+                        <th>UserId</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Pincode</th>
+                        <th>IsActive</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@d.UserId</td>
+                            <td>@d.Name</td>
+                            <td>@d.Gender</td>
+                            <td>@d.Email</td>
+                            <td>@d.PinCode</td>
+                            <td>
+                                @if (d.IsActive)
+                                {
+                                    <input type="checkbox" value="@d.IsActive" checked="checked" disabled />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" value="@d.IsActive" disabled />
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-primary m-1" asp-controller="User" asp-action="">Edit</a>
+                                <a class="btn btn-sm btn-info m-1" asp-controller="User" asp-action="">Details</a>
+                                <a class="btn btn-sm btn-danger m-1" asp-controller="User" asp-action="">Delete</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

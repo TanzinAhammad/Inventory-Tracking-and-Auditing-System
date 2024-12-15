@@ -1,0 +1,42 @@
+﻿@model CRUD_Using_Repository.Models.User
+@{
+    ViewData["Title"] = "AddUser";
+}
+
+<div class="container">
+    <div class="row">
+       <div class="col-6 offset-3 border border-4 rounded rounded-3 p-4">
+           <h3 class="text-info p-2 m-1 text-center">Add User</h3>
+           <form method="post" asp-action="AddUser">
+               <div class="form-check">
+                   <label asp-for="Name"></label>
+                   <input type="text" asp-for="Name" class="form-control" placeholder="Enter name"/>
+               </div>
+               <div class="form-check">
+                   <label asp-for="Gender"></label><br />
+                   <label>
+                       <input type="radio" class="form-check-inline" name="Gender" asp-for="Gender" value="Male" /> Male
+                   </label>
+                   <label> <input type="radio" class="form-check-inline" name="Gender" asp-for="Gender" value="Female" /> Female</label>
+                   <label> <input type="radio" class="form-check-inline" name="Gender" asp-for="Gender" value="Other" /> Other</label>
+               </div>
+               <div class="form-check">
+                    <label asp-for="Email"></label>
+                    <input type="email" asp-for="Email" class="form-control" placeholder="Enter Email" />
+               </div>
+               <div class="form-check">
+                    <label asp-for="PinCode"></label>
+                    <input type="number" asp-for="PinCode" class="form-control" placeholder="Enter pincode" />
+                </div>
+                <div class="form-check">
+                    <label asp-for="IsActive"></label>
+                    <input type="checkbox" asp-for="IsActive" class="form-check-inline" checked = "checked" />
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-sm btn-primary m-2 p-2 float-end" value="Save" />
+                </div>
+           </form>
+       </div>
+    </div>
+</div>
+
