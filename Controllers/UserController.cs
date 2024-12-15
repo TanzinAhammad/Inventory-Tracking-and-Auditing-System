@@ -107,5 +107,34 @@ namespace CRUD_Using_Repository.Controllers
             }
             return RedirectToAction("GetUsersList");
         }
+
+        public async Task<IActionResult> DeleteRecord(int id)
+        {
+            try
+            {
+                if(id==0)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    bool status = await userRepository.DeleteRecord(id);
+                    if(status)
+                    {
+                        TempData["userSuccess"] = "Your Record has been successfully Deleted!";
+                    }
+                    else
+                    {
+                        TempData["userError"] = "Record not Deleted!";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return RedirectToAction("GetUsersList");
+        }
     }
 }

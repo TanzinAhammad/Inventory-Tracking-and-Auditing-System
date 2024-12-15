@@ -42,6 +42,22 @@ namespace CRUD_Using_Repository.Repository.Service
              return status;
         }
 
+        public async Task<bool> DeleteRecord(int id)
+        {
+            bool status = false;
+            if(id!=0)
+            {
+                var data = await context.Users.Where(e => e.UserId == id).FirstOrDefaultAsync();
+                if(data != null)
+                {
+                    context.Users.Remove(data);
+                    await context.SaveChangesAsync();
+                    status = true;
+                }
+            }
+            return status;
+        }
+
         //public async Task<user> GetUserById(int id)
         //{
 

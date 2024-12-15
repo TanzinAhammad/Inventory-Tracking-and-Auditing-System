@@ -11,5 +11,7 @@ namespace CRUD_Using_Repository.Repository.Interface
 
         Task<User> GetUserById(int id);
         Task<bool> UpdateRecord(User user);
+
+        Task<bool> DeleteRecord(int id);
     }
 }
