@@ -1,0 +1,64 @@
+﻿@model CRUD_Using_Repository.Models.User
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3 border border-4 rounded rounded-3 p-4">
+            <h3 class="text-info p-2 m-1 text-center">Upadate User Record</h3>
+            <form method="post" asp-action="Edit">
+                <div class="form-check">
+                    <label asp-for="Name"></label>
+                    <input type="text" asp-for="Name" class="form-control" placeholder="Enter name" />
+                    <input type="hidden" asp-for="UserId"/>
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+                <div class="form-check">
+                    <label asp-for="Gender"></label><br />
+                    <label>
+                        Male <input type="radio" class="form-check-inline" name="Gender" asp-for="Gender" value="Male" />
+                    </label>
+                    <label> Female <input type="radio" class="form-check-inline" name="Gender" asp-for="Gender" value="Female" /> </label>
+                    <label> Other <input type="radio" class="form-check-inline" name="Gender" asp-for="Gender" value="Other" /> </label>
+                    <span class="text-danger" asp-validation-for="Gender"></span>
+
+                </div>
+                <div class="form-check">
+                    <label asp-for="Email"></label>
+                    <input type="email" asp-for="Email" class="form-control" placeholder="Enter Email" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+
+                </div>
+                <div class="form-check">
+                    <label asp-for="PinCode"></label>
+                    <input type="number" asp-for="PinCode" class="form-control" placeholder="Enter pincode" />
+                    <span class="text-danger" asp-validation-for="PinCode"></span>
+
+                </div>
+                <div class="form-check">
+                    <label asp-for="IsActive"></label>
+                    @if (Model.IsActive == true)
+                    {
+                        <input type="checkbox" asp-for="IsActive" class="form-check-inline" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" asp-for="IsActive" class="form-check-inline" />
+                    }
+                    <span class="text-danger" asp-validation-for="IsActive"></span>
+
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-sm btn-warning m-2 p-2 float-end" value="Update" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

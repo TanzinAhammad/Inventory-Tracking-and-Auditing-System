@@ -39,7 +39,7 @@ namespace CRUD_Using_Repository.Controllers
                     }
                     else
                     {
-                        TempData["userSuccess"] = "Record successfully Saved";
+                        TempData["userSuccess"] = "Record successfully Saved!";
                     }
                 }
             }
@@ -51,5 +51,61 @@ namespace CRUD_Using_Repository.Controllers
             return RedirectToAction("GetUsersList");
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            User user = new User();
+            try
+            {
+                if(id == 0)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    user = await userRepository.GetUserById(id);
+                    if(user==null)
+                    {
+                        return NotFound();
+                    }
+
+                }
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return View(user);
+        }
+        [HttpPost]
+
+        public async Task<IActionResult>Edit(User user)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(user);
+                }
+                else
+                {
+                    bool status=await userRepository.UpdateRecord(user);
+                    if(status)
+                    {
+                        TempData["userSuccess"] = "Your Record has been successfully updated!";
+                    }
+                    else 
+                    {
+                        TempData["userError"] = "Record has not been updated!";
+                    }
+                }
+            }
+            catch(Exception) 
+            {
+
+                throw;
+            }
+            return RedirectToAction("GetUsersList");
+        }
     }
 }

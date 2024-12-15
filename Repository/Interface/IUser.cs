@@ -8,5 +8,8 @@ namespace CRUD_Using_Repository.Repository.Interface
         Task<IEnumerable<User>> GetUsers();
         //void AddUser(User user);
         Task<int> AddUser(User user);
+
+        Task<User> GetUserById(int id);
+        Task<bool> UpdateRecord(User user);
     }
 }
