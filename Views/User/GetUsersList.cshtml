@@ -20,18 +20,17 @@
         <div class="col-10 offset-1">
 
             <div class="float-end">
-                <a class="btn btn-sm btn-primary p-1 m-1" asp-action="AddUser" asp-controller="User">Add User</a>
+                <a class="btn btn-sm btn-primary p-1 m-1" asp-action="AddUser" asp-controller="User">Add Product</a>
             </div>
 
             <table class="table table-hover table-striped table-bordered">
                 <thead class="text-center bg-dark text-light">
                     <tr>
-                        <th>UserId</th>
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>Email</th>
-                        <th>Pincode</th>
-                        <th>IsActive</th>
+                        <th>SKU</th>
+                        <th>Product Name</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                        <th>Category</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -39,25 +38,16 @@
                     @foreach (var d in Model)
                     {
                         <tr class="text-center">
-                            <td>@d.UserId</td>
-                            <td>@d.Name</td>
-                            <td>@d.Gender</td>
-                            <td>@d.Email</td>
-                            <td>@d.PinCode</td>
+                            <td>@d.SKU</td>
+                            <td>@d.Product_Name</td>
+                            <td>@d.Stock</td>
+                            <td>@d.Price</td>
+                            <td>@d.Category</td>
+                       
                             <td>
-                                @if (d.IsActive)
-                                {
-                                    <input type="checkbox" value="@d.IsActive" checked="checked" disabled />
-                                }
-                                else
-                                {
-                                    <input type="checkbox" value="@d.IsActive" disabled />
-                                }
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-primary m-1" asp-controller="User" asp-action="Edit" asp-route-id="@d.UserId">Edit</a>
-                                <a class="btn btn-sm btn-info m-1" asp-controller="User" asp-action="">Details</a>
-                                <a class="btn btn-sm btn-danger m-1" asp-controller="User" asp-action="DeleteRecord" asp-route-id="@d.UserId" onclick="return confirm('Are you Sure, You want to Delete this Record!')">Delete</a>
+                                <a class="btn btn-sm btn-primary m-1" asp-controller="User" asp-action="Edit" asp-route-id="@d.SKU">Edit</a>
+                                <!--<a class="btn btn-sm btn-info m-1" asp-controller="User" asp-action="">Details</a>-->
+                                <a class="btn btn-sm btn-danger m-1" asp-controller="User" asp-action="DeleteRecord" asp-route-id="@d.SKU" onclick="return confirm('Are you Sure, You want to Delete this Record!')">Delete</a>
 
                             </td>
                         </tr>

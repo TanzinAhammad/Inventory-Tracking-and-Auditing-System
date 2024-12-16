@@ -4,17 +4,15 @@ namespace CRUD_Using_Repository.Models
     public class User
     {
         [Key]
-        public int UserId { get; set; }
-        [Required(ErrorMessage ="Please enter Name")]
-        public string Name { get; set; } = default!;
+        public int SKU { get; set; }
+        [Required(ErrorMessage ="Please enter Product Name")]
+        public string Product_Name { get; set; } = default!;
         [Required]
-        public string Gender { get; set; } = default!;
+        public int Stock { get; set; } = default!;
         [Required]
-        public string Email { get; set; } = default!;
-        [Display(Name="Pin Code")]
+        public int Price { get; set; } = default!;
+        [Display(Name = "Category")]
         [Required]
-        public int PinCode { get; set; }
-        [Display(Name = "Active")]
-        public bool IsActive { get; set; }
+        public string Category { get; set; }
     }
 }

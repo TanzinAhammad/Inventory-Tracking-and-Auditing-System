@@ -10,6 +10,7 @@ namespace CRUD_Using_Repository.Data
 
         }
         public DbSet<User>Users { get; set; }
-
+        public DbSet<AuditLogs>AuditLogs { get; set; }
+        
     }
 }

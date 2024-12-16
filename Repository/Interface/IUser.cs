@@ -13,5 +13,9 @@ namespace CRUD_Using_Repository.Repository.Interface
         Task<bool> UpdateRecord(User user);
 
         Task<bool> DeleteRecord(int id);
+
+        Task<int> UpdateAuditLogs(AuditLogs auditlogs);
+
+        Task<IEnumerable<AuditLogs>> Audits();
     }
 }

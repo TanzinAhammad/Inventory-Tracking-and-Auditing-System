@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Using_Repository.Controllers
 {
+    
     public class UserController : Controller
     {
         private readonly IUser userRepository;
@@ -16,6 +17,8 @@ namespace CRUD_Using_Repository.Controllers
             var data = await userRepository.GetUsers();
             return View(data);
         }
+
+        
 
         public async Task<IActionResult> AddUser()
         {
@@ -33,7 +36,7 @@ namespace CRUD_Using_Repository.Controllers
                 else
                 {
                     await userRepository.AddUser(user);
-                    if(user.UserId==0)
+                    if(user.SKU==0)
                     {
                         TempData["userError"] = "Record not saved!";
                     }
@@ -51,6 +54,7 @@ namespace CRUD_Using_Repository.Controllers
             return RedirectToAction("GetUsersList");
         }
 
+        
         public async Task<IActionResult> Edit(int id)
         {
             User user = new User();
@@ -63,7 +67,8 @@ namespace CRUD_Using_Repository.Controllers
                 else
                 {
                     user = await userRepository.GetUserById(id);
-                    if(user==null)
+                    TempData["PrevStock"] = user.Stock;
+                    if (user==null)
                     {
                         return NotFound();
                     }
@@ -89,9 +94,41 @@ namespace CRUD_Using_Repository.Controllers
                 }
                 else
                 {
-                    bool status=await userRepository.UpdateRecord(user);
+                    int prevStock = Convert.ToInt32(TempData["PrevStock"]);
+
+                    AuditLogs auditlogs = new AuditLogs();
+                    //auditlogs.AuditId = 1;
+                    auditlogs.SKU = user.SKU;
+                    auditlogs.Product_Name = user.Product_Name;
+                    auditlogs.TimeStamp = DateTime.Now;
+
+                    int quantity = (prevStock - user.Stock);
+                    string type;
+                    if(quantity>0)
+                    {
+                        type = "Deduction";
+                    }
+                    else
+                    {
+                        type = "Addition";
+                        quantity = -quantity;
+                    }
+
+                    auditlogs.ChangeType = type;
+                    auditlogs.Quantity = quantity;
+                    auditlogs.UserName = "AdminUser";
+
+                    bool status = false;
+                    if (user.Stock >= 0)
+                    {
+                        status = await userRepository.UpdateRecord(user);
+                    }
                     if(status)
                     {
+                        if (quantity > 0)
+                        {
+                            await userRepository.UpdateAuditLogs(auditlogs);
+                        }
                         TempData["userSuccess"] = "Your Record has been successfully updated!";
                     }
                     else 
@@ -136,5 +173,12 @@ namespace CRUD_Using_Repository.Controllers
             }
             return RedirectToAction("GetUsersList");
         }
+
+        public async Task<IActionResult> AuditLogs()
+        {
+            var dataAudit = await userRepository.Audits();
+            return View(dataAudit);
+        }
+
     }
 }

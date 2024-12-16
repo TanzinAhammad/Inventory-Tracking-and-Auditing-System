@@ -1,4 +1,5 @@
 ﻿using CRUD_Using_Repository.Data;
+using CRUD_Using_Repository.Migrations;
 using CRUD_Using_Repository.Models;
 using CRUD_Using_Repository.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +22,12 @@ namespace CRUD_Using_Repository.Repository.Service
         {
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();
-            return user.UserId;
+            return user.SKU;
         }
 
         Task<User> IUser.GetUserById(int id)
         {
-            var data = context.Users.Where(e => e.UserId == id).FirstOrDefaultAsync();
+            var data = context.Users.Where(e => e.SKU == id).FirstOrDefaultAsync();
             return data;
         }
 
@@ -47,7 +48,7 @@ namespace CRUD_Using_Repository.Repository.Service
             bool status = false;
             if(id!=0)
             {
-                var data = await context.Users.Where(e => e.UserId == id).FirstOrDefaultAsync();
+                var data = await context.Users.Where(e => e.SKU == id).FirstOrDefaultAsync();
                 if(data != null)
                 {
                     context.Users.Remove(data);
@@ -56,6 +57,19 @@ namespace CRUD_Using_Repository.Repository.Service
                 }
             }
             return status;
+        }
+
+        public async Task<int> UpdateAuditLogs(AuditLogs auditlogs)
+        {
+            await context.AuditLogs.AddAsync(auditlogs);
+            await context.SaveChangesAsync();
+            return auditlogs.AuditId;
+        }
+
+        public async Task<IEnumerable<AuditLogs>> Audits()
+        {
+            var auditData = await context.AuditLogs.ToListAsync();
+            return auditData;
         }
 
         //public async Task<user> GetUserById(int id)

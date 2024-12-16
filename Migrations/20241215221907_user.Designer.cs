@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUD_Using_Repository.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20241215070635_user")]
+    [Migration("20241215221907_user")]
     partial class user
     {
         /// <inheritdoc />
@@ -26,31 +26,27 @@ namespace CRUD_Using_Repository.Migrations
 
             modelBuilder.Entity("CRUD_Using_Repository.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("SKU")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SKU"));
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PinCode")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.Property<string>("Product_Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("SKU");
 
                     b.ToTable("Users");
                 });

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<CRUD_Using_Repository.Models.AuditLogs>
+@{
+    ViewData["Title"] = "AuditLogs";
+}
+
+<div class="contianer">
+    <div class="row">
+        
+        <div class="col-10 offset-1">
+
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="text-center bg-dark text-light">
+                    <tr>
+                       
+                        <th>Product Name</th>
+                        <th>TimeStamp</th>
+                        <th>Change Type</th>
+                        <th>Quantity</th>
+                        <th>User Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in Model)
+                    {
+                        <tr class="text-center">
+                            
+                            <td>@d.Product_Name</td>
+                            <td>@d.TimeStamp</td>
+                            <td>@d.ChangeType</td>
+                            <td>@d.Quantity</td>
+                            <td>@d.UserName</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
