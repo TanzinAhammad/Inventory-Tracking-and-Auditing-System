@@ -1,28 +1,18 @@
 ﻿@model IEnumerable<CRUD_Using_Repository.Models.User>
 @{
-    ViewData["Title"] = "GetUsersList";
+    ViewData["Title"] = "ProductCategory";
 }
 
 <div class="container py-4">
     <div class="row">
-        @if (TempData["userError"] != null)
-        {
-            <div class="alert alert-danger notification text-center">
-                @TempData["userError"]
-            </div>
-        }
-        @if (TempData["userSuccess"] != null)
-        {
-            <div class="alert alert-success notification text-center">
-                @TempData["userSuccess"]
-            </div>
-        }
 
-        <div class="col-12">
+        <div class="col-10 offset-1">
 
-            <!-- Button to Add Product -->
-            <div class="d-flex justify-content-end mb-3">
-                <a class="btn btn-sm btn-primary p-2" asp-action="AddUser" asp-controller="User">Add Product</a>
+            <!-- Search Input -->
+            <div class="row mb-3">
+                <div class="col-12 d-flex justify-content-center">
+                    <input type="text" placeholder="Search here..." id="textSearch" class="form-control w-50" />
+                </div>
             </div>
 
             <!-- Table -->
@@ -57,3 +47,7 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="/js/CustomJs.js"></script>
+}

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CRUD_Using_Repository.Models.User>
+@{
+    ViewData["Title"] = "Product Report";
+    var totalStockValue = ViewBag.TotalStockValue;
+    var mostUpdatedProducts = ViewBag.MostUpdatedProducts as IEnumerable<dynamic>;
+}
+
+<div class="container">
+    <h2 class="text-center mt-3 mb-4">Product Report</h2>
+
+    <!-- Total Stock Value -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="text-success">Total Stock Value: @totalStockValue.ToString("C")</h4>
+        </div>
+    </div>
+
+    <!-- Most Frequently Updated Products -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="text-primary">Most Frequently Updated Products</h4>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>SKU</th>
+                        <th>Product Name</th>
+                        <th>Updates Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (mostUpdatedProducts != null)
+                    {
+                        @foreach (var item in mostUpdatedProducts)
+                        {
+                            <tr>
+                                <td>@item.SKU</td>
+                                <td>@item.ProductName</td>
+                                <td>@item.UpdatesCount</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center">No data available</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+</div>

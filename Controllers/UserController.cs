@@ -180,5 +180,64 @@ namespace CRUD_Using_Repository.Controllers
             return View(dataAudit);
         }
 
+        public async Task<IActionResult> Filter()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ProductCategory()
+        {
+            var data = await userRepository.GetUsers();
+            return View(data);
+        }
+
+        public async Task<IActionResult> ProductPrice()
+        {
+            var data = await userRepository.GetUsers();
+            return View(data);
+        }
+
+        public async Task<IActionResult> ProductStock()
+        {
+            var data = await userRepository.GetUsers();
+            return View(data);
+        }
+
+
+        public async Task<IActionResult> ProductReport()
+        {
+            var users = await userRepository.GetUsers();
+
+            // Total Stock Value
+            decimal totalStockValue = users.Sum(u => u.Stock * u.Price);
+
+            // Most Frequently Updated Products
+            var auditLogs = await userRepository.Audits(); // Fetch audit logs
+            var mostUpdatedProducts = auditLogs
+                .GroupBy(a => a.SKU) // Group by SKU
+                .Select(g => new
+                {
+                    SKU = g.Key,
+                    UpdatesCount = g.Count(),
+                    ProductName = g.First().Product_Name
+                })
+                .OrderByDescending(g => g.UpdatesCount)
+                .Take(5) // Top 5 most updated products
+                .ToList();
+
+            // Pass data to the view using ViewBag or ViewModel
+            ViewBag.TotalStockValue = totalStockValue;
+            ViewBag.MostUpdatedProducts = mostUpdatedProducts;
+
+            return View(users); // Return product list as well
+        }
+
+        
+
+
+
+
     }
 }
+
+

@@ -17,5 +17,9 @@ namespace CRUD_Using_Repository.Repository.Interface
         Task<int> UpdateAuditLogs(AuditLogs auditlogs);
 
         Task<IEnumerable<AuditLogs>> Audits();
+
+       
+        
+
     }
 }

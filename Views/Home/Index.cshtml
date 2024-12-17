@@ -2,7 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h2>Inventory Tracking and Auditing System</h2>
+<div class="container text-center py-5">
+    <h1 class="display-4 text-primary mb-4">Welcome to</h1>
+    <h2 class="text-info mb-5">Inventory Tracking and Auditing System</h2>
+    <div class="d-flex justify-content-center">
+        <p class="lead text-muted">Your one-stop solution for managing product inventory and audit logs with ease and efficiency.</p>
+    </div>
+    <a href="@Url.Action("GetUsersList", "User")" class="btn btn-lg btn-success mt-4">Get Started</a>
 </div>
