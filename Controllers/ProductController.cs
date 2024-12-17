@@ -1,42 +1,43 @@
-﻿using CRUD_Using_Repository.Models;
-using CRUD_Using_Repository.Repository.Interface;
+﻿using Inventory.Migrations;
+using Inventory.Models;
+using Inventory.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CRUD_Using_Repository.Controllers
+namespace Inventory.Controllers
 {
     
-    public class UserController : Controller
+    public class ProductController : Controller
     {
-        private readonly IUser userRepository;
-        public UserController(IUser userRepository)
+        private readonly IProduct productRepository;
+        public ProductController(IProduct productRepository)
         {
-            this.userRepository = userRepository;
+            this.productRepository = productRepository;
         }
-        public async Task<IActionResult> GetUsersList()
+        public async Task<IActionResult> GetProductsList()
         {
-            var data = await userRepository.GetUsers();
+            var data = await productRepository.GetProducts();
             return View(data);
         }
 
         
 
-        public async Task<IActionResult> AddUser()
+        public async Task<IActionResult> AddProduct()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddProduct(Product product)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(user);
+                    return View(product);
                 }
                 else
                 {
-                    await userRepository.AddUser(user);
-                    if(user.SKU==0)
+                    await productRepository.AddProduct(product);
+                    if(product.ProductId==0)
                     {
                         TempData["userError"] = "Record not saved!";
                     }
@@ -51,13 +52,13 @@ namespace CRUD_Using_Repository.Controllers
                 throw;
 
             }
-            return RedirectToAction("GetUsersList");
+            return RedirectToAction("GetProductsList");
         }
 
         
         public async Task<IActionResult> Edit(int id)
         {
-            User user = new User();
+            Product product = new Product();
             try
             {
                 if(id == 0)
@@ -66,9 +67,9 @@ namespace CRUD_Using_Repository.Controllers
                 }
                 else
                 {
-                    user = await userRepository.GetUserById(id);
-                    TempData["PrevStock"] = user.Stock;
-                    if (user==null)
+                    product = await productRepository.GetProductById(id);
+                    TempData["PrevStock"] = product.Stock;
+                    if (product==null)
                     {
                         return NotFound();
                     }
@@ -80,17 +81,17 @@ namespace CRUD_Using_Repository.Controllers
             {
                 throw;
             }
-            return View(user);
+            return View(product);
         }
         [HttpPost]
 
-        public async Task<IActionResult>Edit(User user)
+        public async Task<IActionResult>Edit(Product product)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(user);
+                    return View(product);
                 }
                 else
                 {
@@ -98,12 +99,13 @@ namespace CRUD_Using_Repository.Controllers
 
                     AuditLogs auditlogs = new AuditLogs();
                     //auditlogs.AuditId = 1;
-                    auditlogs.SKU = user.SKU;
-                    auditlogs.Product_Name = user.Product_Name;
+                    auditlogs.ProductId = product.ProductId;
+                    auditlogs.ProductName = product.ProductName;
                     auditlogs.TimeStamp = DateTime.Now;
 
-                    int quantity = (prevStock - user.Stock);
+                    int quantity = (prevStock - product.Stock);
                     string type;
+
                     if(quantity>0)
                     {
                         type = "Deduction";
@@ -117,17 +119,17 @@ namespace CRUD_Using_Repository.Controllers
                     auditlogs.ChangeType = type;
                     auditlogs.Quantity = quantity;
                     auditlogs.UserName = "AdminUser";
-
                     bool status = false;
-                    if (user.Stock >= 0)
+
+                    if (product.Stock >= 0)
                     {
-                        status = await userRepository.UpdateRecord(user);
+                        status = await productRepository.UpdateRecord(product);
                     }
                     if(status)
                     {
                         if (quantity > 0)
                         {
-                            await userRepository.UpdateAuditLogs(auditlogs);
+                            await productRepository.UpdateAuditLogs(auditlogs);
                         }
                         TempData["userSuccess"] = "Your Record has been successfully updated!";
                     }
@@ -142,11 +144,12 @@ namespace CRUD_Using_Repository.Controllers
 
                 throw;
             }
-            return RedirectToAction("GetUsersList");
+            return RedirectToAction("GetProductsList");
         }
 
         public async Task<IActionResult> DeleteRecord(int id)
         {
+            Product product = new Product();
             try
             {
                 if(id==0)
@@ -155,7 +158,29 @@ namespace CRUD_Using_Repository.Controllers
                 }
                 else
                 {
-                    bool status = await userRepository.DeleteRecord(id);
+                    product = await productRepository.GetProductById(id);
+
+                    int prevStock = product.Stock;
+
+                    AuditLogs auditlogs = new AuditLogs();
+                    //auditlogs.AuditId = 1;
+                    auditlogs.ProductId = product.ProductId;
+                    auditlogs.ProductName = product.ProductName;
+                    auditlogs.TimeStamp = DateTime.Now;
+                    int quantity = product.Stock;
+                    auditlogs.ChangeType = "Deduction";
+                    auditlogs.Quantity = quantity;
+                    auditlogs.UserName = "AdminUser"; 
+
+                       
+                    if (quantity > 0)
+                    {
+                        await productRepository.UpdateAuditLogs(auditlogs);
+                    }
+
+
+
+                    bool status = await productRepository.DeleteRecord(id);
                     if(status)
                     {
                         TempData["userSuccess"] = "Your Record has been Successfully Deleted!";
@@ -171,12 +196,12 @@ namespace CRUD_Using_Repository.Controllers
 
                 throw;
             }
-            return RedirectToAction("GetUsersList");
+            return RedirectToAction("GetProductsList");
         }
 
         public async Task<IActionResult> AuditLogs()
         {
-            var dataAudit = await userRepository.Audits();
+            var dataAudit = await productRepository.Audits();
             return View(dataAudit);
         }
 
@@ -187,39 +212,39 @@ namespace CRUD_Using_Repository.Controllers
 
         public async Task<IActionResult> ProductCategory()
         {
-            var data = await userRepository.GetUsers();
+            var data = await productRepository.GetProducts();
             return View(data);
         }
 
         public async Task<IActionResult> ProductPrice()
         {
-            var data = await userRepository.GetUsers();
+            var data = await productRepository.GetProducts();
             return View(data);
         }
 
         public async Task<IActionResult> ProductStock()
         {
-            var data = await userRepository.GetUsers();
+            var data = await productRepository.GetProducts();
             return View(data);
         }
 
 
         public async Task<IActionResult> ProductReport()
         {
-            var users = await userRepository.GetUsers();
+            var products = await productRepository.GetProducts();
 
             // Total Stock Value
-            decimal totalStockValue = users.Sum(u => u.Stock * u.Price);
+            decimal totalStockValue = products.Sum(u => u.Stock * u.Price);
 
             // Most Frequently Updated Products
-            var auditLogs = await userRepository.Audits(); // Fetch audit logs
+            var auditLogs = await productRepository.Audits(); // Fetch audit logs
             var mostUpdatedProducts = auditLogs
-                .GroupBy(a => a.SKU) // Group by SKU
+                .GroupBy(a => a.ProductId) // Group by ProductId
                 .Select(g => new
                 {
-                    SKU = g.Key,
+                    ProductId = g.Key,
                     UpdatesCount = g.Count(),
-                    ProductName = g.First().Product_Name
+                    ProductName = g.First().ProductName
                 })
                 .OrderByDescending(g => g.UpdatesCount)
                 .Take(5) // Top 5 most updated products
@@ -229,7 +254,7 @@ namespace CRUD_Using_Repository.Controllers
             ViewBag.TotalStockValue = totalStockValue;
             ViewBag.MostUpdatedProducts = mostUpdatedProducts;
 
-            return View(users); // Return product list as well
+            return View(products); // Return product list as well
         }
 
         

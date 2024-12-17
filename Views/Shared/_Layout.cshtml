@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - Inventory Tracking and Auditing System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CRUD_Using_Repository.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Inventory.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -29,18 +29,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="GetUsersList">Products</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="GetProductsList">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="AuditLogs">Audit-Logs</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="AuditLogs">Audit-Logs</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Reports
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Filter">Search</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="ProductReport">Report</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="Filter">Search</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Product" asp-action="ProductReport">Report</a></li>
                             </ul>
                         </li>
                     </ul>

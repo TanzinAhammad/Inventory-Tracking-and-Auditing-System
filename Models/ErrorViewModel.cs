@@ -1,4 +1,4 @@
-namespace CRUD_Using_Repository.Models
+namespace Inventory.Models
 {
     public class ErrorViewModel
     {

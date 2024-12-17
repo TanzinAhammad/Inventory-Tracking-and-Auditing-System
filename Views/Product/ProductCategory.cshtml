@@ -1,6 +1,6 @@
-﻿@model IEnumerable<CRUD_Using_Repository.Models.User>
+﻿@model IEnumerable<Inventory.Models.Product>
 @{
-    ViewData["Title"] = "ProductStock";
+    ViewData["Title"] = "ProductCategory";
 }
 
 <div class="container py-4">
@@ -8,25 +8,21 @@
 
         <div class="col-10 offset-1">
 
-            <!-- Stock Filter Section -->
+            <!-- Search Input -->
             <div class="row mb-3">
                 <div class="col-12 d-flex justify-content-center">
-                    <div class="col-4">
-                        <select id="filterStock" class="form-select">
-                            <option value="all">Show All</option>
-                            <option value="outOfStock">Out of Stock</option>
-                            <option value="lowStock">Low Stock</option>
-                        </select>
-                    </div>
+                    <input type="text" placeholder="Search here..." id="textSearch" class="form-control w-50" />
                 </div>
             </div>
 
-            <!-- Product Table -->
+            <!-- Table -->
             <table class="table table-hover table-striped table-bordered">
                 <thead class="text-center bg-dark text-light">
                     <tr>
-                        <th>SKU</th>
+                       
+                        <th>Product Id</th>
                         <th>Product Name</th>
+                        <th>SKU</th>
                         <th>Stock</th>
                         <th>Price($)</th>
                         <th>Category</th>
@@ -37,15 +33,16 @@
                     @foreach (var d in Model)
                     {
                         <tr class="text-center">
+                      
+                            <td>@d.ProductId</td>
+                            <td>@d.ProductName</td>
                             <td>@d.SKU</td>
-                            <td>@d.Product_Name</td>
                             <td>@d.Stock</td>
                             <td>@d.Price</td>
                             <td>@d.Category</td>
-
                             <td>
-                                <a class="btn btn-sm btn-primary m-1" asp-controller="User" asp-action="Edit" asp-route-id="@d.SKU">Edit</a>
-                                <a class="btn btn-sm btn-danger m-1" asp-controller="User" asp-action="DeleteRecord" asp-route-id="@d.SKU" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                                <a class="btn btn-sm btn-primary m-1" asp-controller="Product" asp-action="Edit" asp-route-id="@d.ProductId">Edit</a>
+                                <a class="btn btn-sm btn-danger m-1" asp-controller="Product" asp-action="DeleteRecord" asp-route-id="@d.ProductId" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                             </td>
                         </tr>
                     }
@@ -56,5 +53,5 @@
 </div>
 
 @section scripts {
-    <script src="/js/stock.js"></script>
+    <script src="/js/CustomJs.js"></script>
 }

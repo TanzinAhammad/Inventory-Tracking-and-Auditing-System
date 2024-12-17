@@ -1,42 +1,41 @@
-﻿using CRUD_Using_Repository.Data;
-using CRUD_Using_Repository.Migrations;
-using CRUD_Using_Repository.Models;
-using CRUD_Using_Repository.Repository.Interface;
+﻿using Inventory.Data;
+using Inventory.Models;
+using Inventory.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace CRUD_Using_Repository.Repository.Service
+namespace Inventory.Repository.Service
 {
-    public class UserService : IUser
+    public class ProductService : IProduct
     {
         private readonly ApplicationContext context;
-        public UserService(ApplicationContext context) 
+        public ProductService(ApplicationContext context) 
         {
             this.context = context;
         }
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            var data = await context.Users.ToListAsync();
+            var data = await context.Products.ToListAsync();
             return data;
         }
-        public async Task<int> AddUser(User user)
+        public async Task<int> AddProduct(Product product)
         {
-            await context.Users.AddAsync(user);
+            await context.Products.AddAsync(product);
             await context.SaveChangesAsync();
-            return user.SKU;
+            return product.ProductId;
         }
 
-        Task<User> IUser.GetUserById(int id)
+        Task<Product> IProduct.GetProductById(int id)
         {
-            var data = context.Users.Where(e => e.SKU == id).FirstOrDefaultAsync();
+            var data = context.Products.Where(e => e.ProductId == id).FirstOrDefaultAsync();
             return data;
         }
 
-        public async Task<bool> UpdateRecord(User user)
+        public async Task<bool> UpdateRecord(Product product)
         {
             bool status = false;
-            if (user != null)
+            if (product != null)
             {
-                context.Users.Update(user);
+                context.Products.Update(product);
                 await context.SaveChangesAsync();
                 status = true;
             }
@@ -48,10 +47,10 @@ namespace CRUD_Using_Repository.Repository.Service
             bool status = false;
             if(id!=0)
             {
-                var data = await context.Users.Where(e => e.SKU == id).FirstOrDefaultAsync();
+                var data = await context.Products.Where(e => e.ProductId == id).FirstOrDefaultAsync();
                 if(data != null)
                 {
-                    context.Users.Remove(data);
+                    context.Products.Remove(data);
                     await context.SaveChangesAsync();
                     status = true;
                 }
@@ -72,7 +71,7 @@ namespace CRUD_Using_Repository.Repository.Service
             return auditData;
         }
 
-        //public async Task<user> GetUserById(int id)
+        //public async Task<product> GetProductById(int id)
         //{
 
         //}

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CRUD_Using_Repository.Models.User>
+﻿@model IEnumerable<Inventory.Models.Product>
 @{
     ViewData["Title"] = "ProductPrice";
 }
@@ -26,8 +26,9 @@
             <table class="table table-hover table-striped table-bordered">
                 <thead class="text-center bg-dark text-light">
                     <tr>
-                        <th>SKU</th>
+                        <th>Product Id</th>
                         <th>Product Name</th>
+                        <th>SKU</th>
                         <th>Stock</th>
                         <th>Price($)</th>
                         <th>Category</th>
@@ -38,15 +39,16 @@
                     @foreach (var d in Model)
                     {
                         <tr class="text-center">
+                            <td>@d.ProductId</td>
+                            <td>@d.ProductName</td>
                             <td>@d.SKU</td>
-                            <td>@d.Product_Name</td>
                             <td>@d.Stock</td>
                             <td>@d.Price</td>
                             <td>@d.Category</td>
 
                             <td>
-                                <a class="btn btn-sm btn-primary m-1" asp-controller="User" asp-action="Edit" asp-route-id="@d.SKU">Edit</a>
-                                <a class="btn btn-sm btn-danger m-1" asp-controller="User" asp-action="DeleteRecord" asp-route-id="@d.SKU" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                                <a class="btn btn-sm btn-primary m-1" asp-controller="Product" asp-action="Edit" asp-route-id="@d.ProductId">Edit</a>
+                                <a class="btn btn-sm btn-danger m-1" asp-controller="Product" asp-action="DeleteRecord" asp-route-id="@d.ProductId" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                             </td>
                         </tr>
                     }

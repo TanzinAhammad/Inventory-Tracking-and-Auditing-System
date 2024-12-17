@@ -1,6 +1,6 @@
-using CRUD_Using_Repository.Data;
-using CRUD_Using_Repository.Repository.Interface;
-using CRUD_Using_Repository.Repository.Service;
+using Inventory.Data;
+using Inventory.Repository.Interface;
+using Inventory.Repository.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +11,7 @@ builder.Services.AddDbContext<ApplicationContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IProduct, ProductService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

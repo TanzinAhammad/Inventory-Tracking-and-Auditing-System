@@ -3,7 +3,7 @@
     var threshold = 10; // Define the low stock threshold
 
     $('tbody tr').each(function () {
-        var stock = parseInt($(this).find('td:nth-child(3)').text()) || 0; // Target the 3rd column (Stock)
+        var stock = parseInt($(this).find('td:nth-child(4)').text()) || 0; // Target the 4rd column (Stock)
 
         if (filterType === "outOfStock" && stock === 0) {
             $(this).show(); // Show Out of Stock rows

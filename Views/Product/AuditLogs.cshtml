@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CRUD_Using_Repository.Models.AuditLogs>
+﻿@model IEnumerable<Inventory.Models.AuditLogs>
 @{
     ViewData["Title"] = "AuditLogs";
 }
@@ -14,6 +14,7 @@
                     <table class="table table-hover table-striped table-bordered mb-0">
                         <thead class="text-center bg-dark text-light">
                             <tr>
+                                <th>Product Id</th>
                                 <th>Product Name</th>
                                 <th>TimeStamp</th>
                                 <th>Change Type</th>
@@ -25,7 +26,8 @@
                             @foreach (var d in Model)
                             {
                                 <tr class="text-center">
-                                    <td>@d.Product_Name</td>
+                                    <td>@d.ProductId</td>
+                                    <td>@d.ProductName</td>
                                     <td>@d.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
                                     <td>
                                         <span class="badge @(d.ChangeType == "Addition" ? "bg-success" : "bg-warning")">

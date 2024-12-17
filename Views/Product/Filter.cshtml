@@ -1,4 +1,4 @@
-﻿@model CRUD_Using_Repository.Models.User
+﻿@model Inventory.Models.Product
 @{
     ViewData["Title"] = "Filter";
 }
@@ -9,13 +9,13 @@
             <h3 class="text-center text-primary mb-4">Product Category</h3>
             <form method="post" asp-action="Search Product" class="text-center">
                 <div class="d-flex justify-content-around">
-                    <a class="btn btn-outline-primary btn-sm" asp-controller="User" asp-action="ProductCategory">
+                    <a class="btn btn-outline-primary btn-sm" asp-controller="Product" asp-action="ProductCategory">
                         Search by Category
                     </a>
-                    <a class="btn btn-outline-success btn-sm" asp-controller="User" asp-action="ProductPrice">
+                    <a class="btn btn-outline-success btn-sm" asp-controller="Product" asp-action="ProductPrice">
                         Search by Price
                     </a>
-                    <a class="btn btn-outline-dark btn-sm" asp-controller="User" asp-action="ProductStock">
+                    <a class="btn btn-outline-dark btn-sm" asp-controller="Product" asp-action="ProductStock">
                         Search by Stock
                     </a>
                 </div>

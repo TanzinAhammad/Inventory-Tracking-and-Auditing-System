@@ -1,4 +1,4 @@
-﻿@model CRUD_Using_Repository.Models.User
+﻿@model Inventory.Models.Product
 @{
     ViewData["Title"] = "Edit";
 }
@@ -9,17 +9,21 @@
             <h3 class="text-info p-2 m-1 text-center">Upadate Product Record</h3>
             <form method="post" asp-action="Edit">
                 <div class="form-check">
-                    <label asp-for="Product_Name"></label>
-                    <input type="text" asp-for="Product_Name" class="form-control" placeholder="Enter Product Name" />
-                    <input type="hidden" asp-for="SKU"/>
-                    <span class="text-danger" asp-validation-for="Product_Name"></span>
+                    <label asp-for="ProductName"></label>
+                    <input type="text" asp-for="ProductName" class="form-control" placeholder="Enter Product Name" />
+                    <input type="hidden" asp-for="ProductId" />
+                    <span class="text-danger" asp-validation-for="ProductName"></span>
                 </div>
 
-                
-                
+                <div class="form-check">
+                    <label asp-for="SKU"></label>
+                    <input type="text" asp-for="SKU" class="form-control" placeholder="Enter SKU (Unique Identifier)" />
+                    <span class="text-danger" asp-validation-for="SKU"></span>
+                </div>
+
                 <div class="form-check">
                     <label asp-for="Stock"></label>
-                    <input type="number" asp-for="Stock" class="form-control" placeholder="Enter Stock" min="0"/>
+                    <input type="number" asp-for="Stock" class="form-control" placeholder="Enter Stock" min="0" />
                     <span class="text-danger" asp-validation-for="Stock"></span>
 
                 </div>
@@ -44,9 +48,8 @@
         </div>
     </div>
 </div>
-@section scripts{
+@section scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-

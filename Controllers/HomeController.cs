@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using CRUD_Using_Repository.Models;
+using Inventory.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CRUD_Using_Repository.Controllers
+namespace Inventory.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,7 +1,7 @@
-﻿using CRUD_Using_Repository.Models;
+﻿using Inventory.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CRUD_Using_Repository.Data
+namespace Inventory.Data
 {
     public class ApplicationContext:DbContext
     {
@@ -9,7 +9,7 @@ namespace CRUD_Using_Repository.Data
         { 
 
         }
-        public DbSet<User>Users { get; set; }
+        public DbSet<Product>Products { get; set; }
         public DbSet<AuditLogs>AuditLogs { get; set; }
         
     }
