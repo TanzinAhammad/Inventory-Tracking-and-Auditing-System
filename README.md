@@ -1,4 +1,4 @@
-Inventory Tracking and Management System:
+Inventory Tracking and Auditing System:
 Developed a scalable system with modules for Product Management, Audit Logs, and Reporting.
 Product Management: Supports CRUD operations with validation for products, including attributes like Name, SKU, Stock, Price, and Category.
 Audit Logs: Tracks all stock changes with details like Timestamp, Change Type, Quantity, and User.
