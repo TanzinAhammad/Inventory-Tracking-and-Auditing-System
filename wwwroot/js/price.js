@@ -3,8 +3,8 @@
     var maxPrice = parseFloat($('#maxPrice').val()) || Number.MAX_VALUE; // Max price input, defaults to large value
 
     $('tbody tr').each(function () {
-        // Target the 5th column (Price) for filtering (index 4 because of 0-based indexing)
-        var priceText = $(this).find('td:nth-child(5)').text().trim(); // Get the price text from the 5th column
+        // Target the 6th column (Price) for filtering (index 5 because of 0-based indexing)
+        var priceText = $(this).find('td:nth-child(5)').text().trim(); // Get the price text from the 6th column
 
         // Remove non-numeric characters (like $ signs) and convert the price to a float
         var price = parseFloat(priceText.replace(/[^0-9.-]+/g, "")) || 0;
